@@ -6,6 +6,11 @@ import { NamedNode } from 'rdflib';
 
 export const Container: PaneContainer = (props) => {
   const contents = props.store.statementsMatching(props.resource, ns.ldp('contains'), null, null);
+
+  if (contents.length === 0) {
+    return (<p>This container is empty&hellip;</p>);
+  }
+
   const cards = contents.map((statement) => {
     return (
       <div className="card">
