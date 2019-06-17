@@ -8,7 +8,7 @@ export const Container: PaneContainer = (props) => {
   const contents = props.store.statementsMatching(props.resource, ns.ldp('contains'), null, null);
 
   if (contents.length === 0) {
-    return (<p>This container is empty&hellip;</p>);
+    return (<section><p>This container is empty&hellip;</p></section>);
   }
 
   const cards = contents.map((statement) => {
@@ -24,8 +24,8 @@ export const Container: PaneContainer = (props) => {
   });
   
   return (
-    <div className="grid grid__four-column">
+    <section className="grid grid__four-column">
       {cards}
-    </div>
+    </section>
   );
 };
