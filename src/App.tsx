@@ -39,9 +39,14 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <header>
-        <h1>Data browser</h1>
+      <header className="header fixed">
+        <div className="header-wrap">
+          <div className="logo-block">
+            <h1>Data browser</h1>
+          </div>
+        </div>
       </header>
+      <div className="header-spacer"/>
       <ResourceLoader
         loadResource={loadResource}
         store={store}
