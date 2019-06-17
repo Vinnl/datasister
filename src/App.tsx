@@ -55,12 +55,31 @@ const App: React.FC = () => {
         </div>
       </header>
       <div className="header-spacer"/>
+      <Introduction resourcePath={resourcePath}/>
       <ResourceLoader
         loadResource={loadResource}
         store={store}
         resource={resource}
       />
     </div>
+  );
+}
+
+const Introduction: React.FC<{resourcePath: string}> = (props) => {
+  if (
+    props.resourcePath !== document.location.origin
+    && props.resourcePath !== document.location.origin + '/'
+  ) {
+    return null;
+  }
+
+  return (
+    <section>
+      <article>
+        <h2>This is your Pod</h2>
+        <p>Here, you can browse through all data stored by apps you gave access to your Pod.</p>
+      </article>
+    </section>
   );
 }
 
