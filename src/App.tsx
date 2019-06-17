@@ -4,6 +4,7 @@ import $rdf from 'rdflib';
 import { createBrowserHistory } from 'history';
 import './App.css';
 import { ResourceLoader } from './components/ResourceLoader';
+import { ProfileButton } from './components/styleguide/ProfileButton';
 
 const store = $rdf.graph();
 const fetcher = new $rdf.Fetcher(store, undefined);
@@ -44,6 +45,13 @@ const App: React.FC = () => {
           <div className="logo-block">
             <h1>Data browser</h1>
           </div>
+          <nav className="nav nav__toolbar">
+            <ul>
+              <li>
+                <ProfileButton store={store} loadResource={loadResource}/>
+              </li>
+            </ul>
+          </nav>
         </div>
       </header>
       <div className="header-spacer"/>

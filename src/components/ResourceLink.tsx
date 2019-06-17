@@ -17,7 +17,17 @@ export const ResourceLink: React.FC<Props> = (props) => {
       props.loadResource(props.resource.uri);
     }
   }
-  const shorthand = getShorthand(props.resource, props.store);
+
+  const children = (props.children)
+    ? props.children
+    : getShorthand(props.resource, props.store);
+
+  if (!props.title) {
+    props.title = (typeof children === 'string')
+      ? `View ${children}`
+      : `View ${getShorthand(props.resource, props.store)}`
+  }
+
   const anchorProps = {
     ...props,
     resource: undefined,
@@ -30,9 +40,8 @@ export const ResourceLink: React.FC<Props> = (props) => {
       {...anchorProps}
       href={props.resource.uri}
       onClick={clickHandler}
-      title={`View ${shorthand}`}
     >
-      {shorthand}
+      {children}
     </a>
   );
 };
