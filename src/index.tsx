@@ -1,3 +1,7 @@
+// Needed to support features like URL/URLSearchParams.
+// See https://github.com/facebook/create-react-app/tree/master/packages/react-app-polyfill#polyfilling-other-language-features
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

@@ -1,11 +1,13 @@
 import React from 'react';
 import '@inrupt/solid-style-guide';
 import $rdf from 'rdflib';
+import { createBrowserHistory } from 'history';
 import './App.css';
 import { ResourceLoader } from './components/ResourceLoader';
 
 const store = $rdf.graph();
 const fetcher = new $rdf.Fetcher(store, undefined);
+const history = createBrowserHistory();
 
 const App: React.FC = () => {
   const [resourcePath, setResourcePath] = React.useState<string>(document.location.href);
@@ -13,8 +15,6 @@ const App: React.FC = () => {
 
   React.useEffect(
     () => {
-      // TODO: Use the History API to change the document location as well,
-      //       and track location changes to load other resources.
       setResource(undefined);
       const newResource = $rdf.sym(resourcePath);
       fetcher.load(newResource).then((_response: any) => {
@@ -24,8 +24,17 @@ const App: React.FC = () => {
     [resourcePath],
   );
 
+  React.useEffect(() => {
+    const unlisten = history.listen((location) => {
+      setResourcePath(document.location.origin + location.pathname + location.search + location.hash);
+    })
+
+    return unlisten;
+  });
+
   const loadResource = (resourcePath: string) => {
-    setResourcePath(resourcePath);
+    const url = new URL(resourcePath);
+    history.push(url.pathname + url.search + url.hash);
   }
 
   return (
