@@ -22,7 +22,7 @@ export const ResourceLoader: React.FC<Props> = (props) => {
   }
 
   if (typeof pane === 'undefined') {
-    return (<div>Unfortunately we do not have a pane to display this type of resource.</div>);
+    pane = 'fallback';
   }
 
   return (
