@@ -1,6 +1,6 @@
 import $rdf from 'rdflib';
 
-const aliases: {[alias: string]: string} = {
+export const aliases: {[alias: string]: string} = {
   acl: 'http://www.w3.org/ns/auth/acl#',
   arg: 'http://www.w3.org/ns/pim/arg#',
   cal: 'http://www.w3.org/2002/12/cal/ical#',
