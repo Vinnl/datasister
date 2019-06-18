@@ -4,30 +4,47 @@ import $rdf from 'rdflib';
 import { namespaces as ns } from '../namespace';
 
 export const usePodOrigin = (store: $rdf.IndexedFormula, fetcher: $rdf.Fetcher) => {
-  const [podOrigin, setPodOrigin] = React.useState(process.env.REACT_APP_POD_ORIGIN || document.location.origin);
+  const ownOrigin = process.env.REACT_APP_POD_ORIGIN || document.location.origin;
+  if (!process.env.REACT_APP_REMOTE || process.env.REACT_APP_REMOTE !== 'true') {
+    return ownOrigin;
+  }
+
+  // The conditional above gets compiled away to either `true` or `false`,
+  // and hence the order of the hooks will remain consistent when built:
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [podOrigin, setPodOrigin] = React.useState();
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const webId = useWebId();
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   React.useEffect(() => {
-    if (!process.env.REACT_APP_REMOTE || process.env.REACT_APP_REMOTE !== 'true') {
-      // The above flag should explicitly be set if we're not running on a pod server.
-      // This saves us some unnecessary HTTP requests.
-      return;
-    }
-    
-    isPodServer(podOrigin)
-    .then((isPodOriginAPodServer) => {
-      if (isPodOriginAPodServer || !webId) {
+    // First check whether the server that hosts the Data Browser is a Pod server...
+    isPodServer(ownOrigin)
+    .then((isOwnOriginAPodServer) => {
+      if (isOwnOriginAPodServer) {
+        // ...if it is, we're good!
+        setPodOrigin(ownOrigin);
         return;
       }
+      if (!webId) {
+        // ...otherwise, wait until we are logged in...
+        return;
+      }
+      // ...then check whether a Pod server is listed in the user's profile.
       const profile = $rdf.sym(webId);
-      fetcher.load(profile).then(() => {
+      fetcher.load(profile)
+      .then(() => {
         const [storageStatement] = store.statementsMatching(profile, ns.space('storage'), null, profile.doc(), true);
         if (storageStatement) {
           setPodOrigin(storageStatement.object.value);
+        } else {
+          setPodOrigin(null);
         }
-      });
+      })
+      .catch((e) => setPodOrigin(null));
     });
-  }, [podOrigin, webId, fetcher, store]);
+  }, [ownOrigin, webId, fetcher, store]);
 
   return podOrigin;
 }

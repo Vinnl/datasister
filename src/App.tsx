@@ -7,6 +7,7 @@ import { ResourceLoader } from './components/ResourceLoader';
 import { ProfileButton } from './components/styleguide/ProfileButton';
 import { DataBrowserContextData, DataBrowserContext } from './context';
 import { usePodOrigin } from './hooks/usePodOrigin';
+import { Loading } from './components/Loading';
 
 const store = $rdf.graph();
 const fetcher = new $rdf.Fetcher(store, undefined);
@@ -14,13 +15,14 @@ const history = createBrowserHistory();
 
 const App: React.FC = () => {
   const podOrigin = usePodOrigin(store, fetcher);
-  const initialResourcePath = podOrigin + document.location.pathname + document.location.search + document.location.hash;
-  const [resourcePath, setResourcePath] = React.useState(initialResourcePath);
+  const [resourcePath, setResourcePath] = React.useState();
   const [resource, setResource] = React.useState<$rdf.NamedNode>();
 
   React.useEffect(
     () => {
       setResource(undefined);
+      // The path initialises to undefined while we're not sure to which server we're talking:
+      if (!resourcePath) { return; }
       const newResource = $rdf.sym(resourcePath);
       fetcher.load(newResource).then((_response: any) => {
         setResource(newResource);
@@ -30,17 +32,30 @@ const App: React.FC = () => {
   );
 
   React.useEffect(() => {
+    if (!podOrigin) {
+      return;
+    }
+    // When initialising the data browser, load the resource at the current URL:
+    const initialResourcePath = podOrigin + document.location.pathname + document.location.search + document.location.hash;
+    loadResource(initialResourcePath);
+    setResourcePath(initialResourcePath);
+
     const unlisten = history.listen((newLocation) => {
       setResourcePath(podOrigin + newLocation.pathname + newLocation.search + newLocation.hash);
     })
 
     return unlisten;
-  });
+  }, [podOrigin]);
 
   const loadResource = (resourcePath: string) => {
     const url = new URL(resourcePath);
     history.push(url.pathname + url.search + url.hash);
   }
+
+  if (!podOrigin) {
+    return (<Loading/>);
+  }
+
   const dataBrowserContext: DataBrowserContextData = { store, podOrigin, loadResource };
 
   return (
