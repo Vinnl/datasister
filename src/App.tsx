@@ -38,7 +38,6 @@ const App: React.FC = () => {
     }
     // When initialising the data browser, load the resource at the current URL:
     const initialResourcePath = podOrigin + normalisePath(document.location.pathname) + document.location.search + document.location.hash;
-    loadResource(initialResourcePath);
     setResourcePath(initialResourcePath);
 
     const unlisten = history.listen((newLocation) => {
