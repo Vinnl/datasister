@@ -50,7 +50,8 @@ const App: React.FC = () => {
 
   const loadResource = (resourcePath: string) => {
     const url = new URL(resourcePath);
-    history.push(url.pathname + url.search + url.hash);
+    const basename = process.env.REACT_APP_BASENAME || '';
+    history.push(basename + url.pathname + url.search + url.hash);
   }
 
   if (typeof podOrigin === 'undefined') {
