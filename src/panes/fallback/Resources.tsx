@@ -42,7 +42,7 @@ export const Resources: React.FC<Props> = (props) => {
 
   return (
     <div className="card">
-      <table>{rows}</table>
+      <table><tbody>{rows}</tbody></table>
     </div>
   );
 };
