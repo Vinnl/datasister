@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/datasister/static/css/main.5facb584.chunk.css",
-    "main.js": "/datasister/static/js/main.656cf06c.chunk.js",
-    "main.js.map": "/datasister/static/js/main.656cf06c.chunk.js.map",
+    "main.js": "/datasister/static/js/main.9453a0a4.chunk.js",
+    "main.js.map": "/datasister/static/js/main.9453a0a4.chunk.js.map",
     "runtime~main.js": "/datasister/static/js/runtime~main.b0a6d5e7.js",
     "runtime~main.js.map": "/datasister/static/js/runtime~main.b0a6d5e7.js.map",
     "static/css/2.743ef7f8.chunk.css": "/datasister/static/css/2.743ef7f8.chunk.css",
@@ -13,7 +13,7 @@
     "static/js/4.49242f71.chunk.js": "/datasister/static/js/4.49242f71.chunk.js",
     "static/js/4.49242f71.chunk.js.map": "/datasister/static/js/4.49242f71.chunk.js.map",
     "index.html": "/datasister/index.html",
-    "precache-manifest.1377309affe64a82b7adb2bd1dbb0752.js": "/datasister/precache-manifest.1377309affe64a82b7adb2bd1dbb0752.js",
+    "precache-manifest.8e49e439b414ab3c3f4c2871babfca54.js": "/datasister/precache-manifest.8e49e439b414ab3c3f4c2871babfca54.js",
     "service-worker.js": "/datasister/service-worker.js",
     "static/css/2.743ef7f8.chunk.css.map": "/datasister/static/css/2.743ef7f8.chunk.css.map",
     "static/css/main.5facb584.chunk.css.map": "/datasister/static/css/main.5facb584.chunk.css.map",
