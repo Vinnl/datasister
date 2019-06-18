@@ -36,12 +36,12 @@ const App: React.FC = () => {
       return;
     }
     // When initialising the data browser, load the resource at the current URL:
-    const initialResourcePath = podOrigin + document.location.pathname + document.location.search + document.location.hash;
+    const initialResourcePath = podOrigin + normalisePath(document.location.pathname) + document.location.search + document.location.hash;
     loadResource(initialResourcePath);
     setResourcePath(initialResourcePath);
 
     const unlisten = history.listen((newLocation) => {
-      setResourcePath(podOrigin + newLocation.pathname + newLocation.search + newLocation.hash);
+      setResourcePath(podOrigin + normalisePath(newLocation.pathname) + newLocation.search + newLocation.hash);
     })
 
     return unlisten;
@@ -105,6 +105,20 @@ const Introduction: React.FC<{resourcePath: string}> = (props) => {
       </article>
     </section>
   );
+}
+
+function normalisePath(path: string): string {
+  const basename = process.env.REACT_APP_BASENAME;
+
+  if (!basename || path.substring(0, basename.length) !== basename) {
+    return path;
+  }
+
+  // Make sure that the resulting path starts with a slash if the input did as well:
+  const rest = path.substring(basename.length);
+  return (path.charAt(0) === '/' && rest.charAt(0) !== '/')
+    ? `/${rest}`
+    : rest;
 }
 
 export default App;
