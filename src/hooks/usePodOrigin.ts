@@ -28,8 +28,12 @@ export const usePodOrigin: UsePodOrigin = (store, fetcher) => {
         setPodOrigin(ownOrigin);
         return;
       }
-      if (!webId) {
+      if (typeof webId === 'undefined') {
         // ...otherwise, wait until we are logged in...
+        return;
+      }
+      if (webId === null) {
+        setPodOrigin(null);
         return;
       }
       // ...then check whether a Pod server is listed in the user's profile.
