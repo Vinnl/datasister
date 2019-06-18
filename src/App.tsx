@@ -6,13 +6,14 @@ import './App.css';
 import { ResourceLoader } from './components/ResourceLoader';
 import { ProfileButton } from './components/styleguide/ProfileButton';
 import { DataBrowserContextData, DataBrowserContext } from './context';
+import { usePodOrigin } from './hooks/usePodOrigin';
 
 const store = $rdf.graph();
 const fetcher = new $rdf.Fetcher(store, undefined);
-const podOrigin = process.env.REACT_APP_POD_ORIGIN || document.location.origin;
 const history = createBrowserHistory();
 
 const App: React.FC = () => {
+  const podOrigin = usePodOrigin(store, fetcher);
   const initialResourcePath = podOrigin + document.location.pathname + document.location.search + document.location.hash;
   const [resourcePath, setResourcePath] = React.useState(initialResourcePath);
   const [resource, setResource] = React.useState<$rdf.NamedNode>();
