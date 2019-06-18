@@ -13,7 +13,7 @@ export const Container: PaneContainer = (props) => {
 
   const cards = contents.map((statement) => {
     return (
-      <div className="card">
+      <div key={statement.object.value} className="card">
         <ResourceLink resource={statement.object as NamedNode}/>
       </div>
     );
