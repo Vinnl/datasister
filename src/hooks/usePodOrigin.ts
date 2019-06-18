@@ -42,7 +42,8 @@ export const usePodOrigin: UsePodOrigin = (store, fetcher) => {
       .then(() => {
         const [storageStatement] = store.statementsMatching(profile, ns.space('storage'), null, profile.doc(), true);
         if (storageStatement) {
-          setPodOrigin(storageStatement.object.value);
+          const url = new URL(storageStatement.object.value);
+          setPodOrigin(url.origin);
         } else {
           setPodOrigin(null);
         }
