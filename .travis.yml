@@ -1,0 +1,17 @@
+language: node_js
+install:
+  - npm ci
+script:
+  - npm test
+  # The CI flag turns warnings into errors. Unfortunately, we included @trust/webcrypto as a
+  # transitive dependency, which triggers a warning in Webpack. We can either eject from Create
+  # React App, a CRA rewirer, or suppress the warnings. I chose the latter as least invasive.
+  # More info: https://github.com/anvilresearch/webcrypto#not-for-use-in-webpack
+  - CI=false npm run build
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master
