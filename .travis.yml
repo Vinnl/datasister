@@ -1,0 +1,7 @@
+language: node_js
+install:
+  - npm ci
+script:
+  - npm test
+  # Make sure it still builds successfully - the build isn't actually used yet:
+  - npm run build
