@@ -8,6 +8,7 @@ import { ProfileButton } from './components/styleguide/ProfileButton';
 import { DataBrowserContextData, DataBrowserContext } from './context';
 import { usePodOrigin } from './hooks/usePodOrigin';
 import { Loading } from './components/Loading';
+import { Connect } from './components/Connect';
 
 const store = $rdf.graph();
 const fetcher = new $rdf.Fetcher(store, undefined);
@@ -57,9 +58,12 @@ const App: React.FC = () => {
   }
   if (podOrigin === null) {
     return (
-      <section className="banner banner-wrap--error">
-        <div className="banner-wrap__content">Could not find a Pod to browse; are you logged in?</div>
-      </section>
+      <>
+        <section className="banner banner-wrap--error">
+          <div className="banner-wrap__content">Could not find a Pod to browse.</div>
+        </section>
+        <Connect/>
+      </>
     );
   }
 
