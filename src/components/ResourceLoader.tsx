@@ -3,21 +3,22 @@ import $rdf from 'rdflib';
 import { PaneLoader } from './PaneLoader';
 import { Loading } from './Loading';
 import { canHandle as isContainer } from '../panes/folder/matcher';
+import { DataBrowserContext } from '../context';
 
 interface Props {
   resource?: $rdf.NamedNode;
-  store: $rdf.IndexedFormula;
-  loadResource: (resourcePath: string) => void;
 };
 
 export const ResourceLoader: React.FC<Props> = (props) => {
+  const { store } = React.useContext(DataBrowserContext);
+
   if (!props.resource) {
     return <Loading/>;
   }
 
   let pane: string | undefined = undefined;
 
-  if (isContainer(props.resource, props.store)) {
+  if (isContainer(props.resource, store)) {
     pane = 'folder';
   }
 
@@ -28,9 +29,7 @@ export const ResourceLoader: React.FC<Props> = (props) => {
   return (
     <PaneLoader
       pane={pane}
-      store={props.store}
       resource={props.resource}
-      loadResource={props.loadResource}
     />
   );
 }

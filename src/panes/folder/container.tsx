@@ -14,11 +14,7 @@ export const Container: PaneContainer = (props) => {
   const cards = contents.map((statement) => {
     return (
       <div className="card">
-        <ResourceLink
-          resource={statement.object as NamedNode}
-          store={props.store}
-          loadResource={props.loadResource}
-        />
+        <ResourceLink resource={statement.object as NamedNode}/>
       </div>
     );
   });

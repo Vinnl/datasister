@@ -1,22 +1,22 @@
 import React, { Suspense } from 'react';
 import { IndexedFormula, NamedNode } from 'rdflib';
 import { Loading } from './Loading';
+import { DataBrowserContext } from '../context';
 
 export interface Props {
   pane: string;
-  store: IndexedFormula;
   resource: NamedNode;
-  loadResource: (resourcePath: string) => void;
 };
 
 export const PaneLoader: React.FC<Props> = (props) => {
+  const { store, loadResource } = React.useContext(DataBrowserContext);
   const PaneComponent = React.lazy(() => loadPane(props.pane));
   return (
     <Suspense fallback={<Loading/>}>
       <PaneComponent
-        store={props.store}
+        store={store}
         resource={props.resource}
-        loadResource={props.loadResource}
+        loadResource={loadResource}
       />
     </Suspense>
   );

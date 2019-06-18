@@ -5,7 +5,6 @@ import { ResourceLink } from '../../components/ResourceLink';
 interface Props {
   resource: NamedNode;
   store: IndexedFormula;
-  loadResource: (resourcePath: string) => void;
 };
 
 export const Resources: React.FC<Props> = (props) => {
@@ -26,23 +25,15 @@ export const Resources: React.FC<Props> = (props) => {
         <tr key={subjectStatement.subject + index.toString()}>
           <td>
             {(index === 0)
-              ? <ResourceLink resource={subjectStatement.subject as NamedNode} store={props.store} loadResource={props.loadResource}/>
+              ? <ResourceLink resource={subjectStatement.subject as NamedNode}/>
               : null
             }
           </td>
           <td>
-            <ResourceLink
-              resource={subjectStatement.predicate as NamedNode}
-              store={props.store}
-              loadResource={props.loadResource}
-            />
+            <ResourceLink resource={subjectStatement.predicate as NamedNode}/>
           </td>
           <td>
-            <ResourceLink
-              resource={subjectStatement.object as NamedNode}
-              store={props.store}
-              loadResource={props.loadResource}
-            />
+            <ResourceLink resource={subjectStatement.object as NamedNode}/>
           </td>
         </tr>
       );

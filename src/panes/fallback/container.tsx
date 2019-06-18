@@ -17,7 +17,7 @@ export const Container: PaneContainer = (props) => {
       <p>You can see the raw document below:</p>
       <Toggle onChange={toggleView} label="Card view" defaultChecked={cardView}/>
       {cardView
-        ? <Resources resource={props.resource} store={props.store} loadResource={props.loadResource}/>
+        ? <Resources resource={props.resource} store={props.store}/>
         : <Turtle resource={props.resource} store={props.store}/>
       }
     </section>
