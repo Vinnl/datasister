@@ -54,7 +54,7 @@ async function isPodServer(origin: string): Promise<boolean> {
   try {
     const response = await fetch(origin, { headers: { 'Content-Type': 'text/turtle' } });
     const contentType = response.headers.get('Content-Type');
-    return contentType !== null && contentType.toLowerCase() === 'text/turtle';
+    return response.ok && contentType !== null && contentType.toLowerCase() === 'text/turtle';
   } catch (e) {
     return false;
   }
