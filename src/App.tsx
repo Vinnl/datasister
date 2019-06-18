@@ -52,8 +52,15 @@ const App: React.FC = () => {
     history.push(url.pathname + url.search + url.hash);
   }
 
-  if (!podOrigin) {
+  if (typeof podOrigin === 'undefined') {
     return (<Loading/>);
+  }
+  if (podOrigin === null) {
+    return (
+      <section className="banner banner-wrap--error">
+        <div className="banner-wrap__content">Could not find a Pod to browse; are you logged in?</div>
+      </section>
+    );
   }
 
   const dataBrowserContext: DataBrowserContextData = { store, podOrigin, loadResource };

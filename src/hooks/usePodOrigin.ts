@@ -3,7 +3,8 @@ import { useWebId } from '@solid/react';
 import $rdf from 'rdflib';
 import { namespaces as ns } from '../namespace';
 
-export const usePodOrigin = (store: $rdf.IndexedFormula, fetcher: $rdf.Fetcher) => {
+type UsePodOrigin = (store: $rdf.IndexedFormula, fetcher: $rdf.Fetcher) => string | undefined | null;
+export const usePodOrigin: UsePodOrigin = (store, fetcher) => {
   const ownOrigin = process.env.REACT_APP_POD_ORIGIN || document.location.origin;
   if (!process.env.REACT_APP_REMOTE || process.env.REACT_APP_REMOTE !== 'true') {
     return ownOrigin;
@@ -12,7 +13,7 @@ export const usePodOrigin = (store: $rdf.IndexedFormula, fetcher: $rdf.Fetcher) 
   // The conditional above gets compiled away to either `true` or `false`,
   // and hence the order of the hooks will remain consistent when built:
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [podOrigin, setPodOrigin] = React.useState();
+  const [podOrigin, setPodOrigin] = React.useState<string | null>();
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const webId = useWebId();
