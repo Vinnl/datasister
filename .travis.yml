@@ -8,3 +8,11 @@ script:
   # React App, a CRA rewirer, or suppress the warnings. I chose the latter as least invasive.
   # More info: https://github.com/anvilresearch/webcrypto#not-for-use-in-webpack
   - CI=false npm run build
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  local_dir: build
+  keep_history: true
+  on:
+    branch: master

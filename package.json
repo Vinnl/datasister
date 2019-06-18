@@ -1,6 +1,7 @@
 {
   "name": "datasister",
   "version": "0.1.0",
+  "homepage": "https://vinnl.github.io/datasister",
   "private": true,
   "dependencies": {
     "@inrupt/solid-style-guide": "^0.1.34",
