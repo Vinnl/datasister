@@ -22,14 +22,16 @@ export const ResourceLink: React.FC<Props> = (props) => {
     ? props.children
     : getShorthand(props.resource, store, podOrigin);
 
-  if (!props.title) {
-    props.title = (typeof children === 'string')
+  let title = props.title;
+  if (!title) {
+    title = (typeof children === 'string')
       ? `View ${children}`
       : `View ${getShorthand(props.resource, store, podOrigin)}`
   }
 
   const anchorProps = {
     ...props,
+    title: title,
     resource: undefined,
   };
 
