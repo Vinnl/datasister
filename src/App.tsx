@@ -9,7 +9,7 @@ import { DataBrowserContextData, DataBrowserContext } from './context';
 
 const store = $rdf.graph();
 const fetcher = new $rdf.Fetcher(store, undefined);
-const podOrigin = document.location.origin;
+const podOrigin = process.env.REACT_APP_POD_ORIGIN || document.location.origin;
 const history = createBrowserHistory();
 
 const App: React.FC = () => {
