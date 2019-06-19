@@ -1,7 +1,6 @@
 import React from 'react';
 import '@inrupt/solid-style-guide';
 import $rdf from 'rdflib';
-import { createBrowserHistory } from 'history';
 import './App.css';
 import { ResourceLoader } from './components/ResourceLoader';
 import { ProfileButton } from './components/styleguide/ProfileButton';
@@ -9,49 +8,16 @@ import { DataBrowserContextData, DataBrowserContext } from './context';
 import { usePodOrigin } from './hooks/usePodOrigin';
 import { Loading } from './components/Loading';
 import { Connect } from './components/Connect';
+import { useResourceLoader } from './hooks/useResourceLoader';
+import { useResourceRouter, loadResource } from './hooks/useResourceRouter';
 
 const store = $rdf.graph();
 const fetcher = new $rdf.Fetcher(store, undefined);
-const history = createBrowserHistory();
 
 const App: React.FC = () => {
   const podOrigin = usePodOrigin(store, fetcher);
-  const [resourcePath, setResourcePath] = React.useState();
-  const [resource, setResource] = React.useState<$rdf.NamedNode>();
-
-  React.useEffect(
-    () => {
-      setResource(undefined);
-      // The path initialises to undefined while we're not sure to which server we're talking:
-      if (!resourcePath) { return; }
-      const newResource = $rdf.sym(resourcePath);
-      fetcher.load(newResource).then((_response: any) => {
-        setResource(newResource);
-      });
-    },
-    [resourcePath],
-  );
-
-  React.useEffect(() => {
-    if (!podOrigin) {
-      return;
-    }
-    // When initialising the data browser, load the resource at the current URL:
-    const initialResourcePath = podOrigin + normalisePath(document.location.pathname) + document.location.search + document.location.hash;
-    setResourcePath(initialResourcePath);
-
-    const unlisten = history.listen((newLocation) => {
-      setResourcePath(podOrigin + normalisePath(newLocation.pathname) + newLocation.search + newLocation.hash);
-    })
-
-    return unlisten;
-  }, [podOrigin]);
-
-  const loadResource = (resourcePath: string) => {
-    const url = new URL(resourcePath);
-    const basename = process.env.REACT_APP_BASENAME || '';
-    history.push(basename + url.pathname + url.search + url.hash);
-  }
+  const resourcePath = useResourceRouter(podOrigin);
+  const resource = useResourceLoader(resourcePath, fetcher);
 
   if (typeof podOrigin === 'undefined') {
     return (<Loading/>);
@@ -94,7 +60,7 @@ const App: React.FC = () => {
   );
 }
 
-const Introduction: React.FC<{resourcePath: string}> = (props) => {
+const Introduction: React.FC<{resourcePath: string | undefined}> = (props) => {
   const { podOrigin } = React.useContext(DataBrowserContext);
 
   if (props.resourcePath !== podOrigin && props.resourcePath !== podOrigin + '/') {
@@ -111,18 +77,5 @@ const Introduction: React.FC<{resourcePath: string}> = (props) => {
   );
 }
 
-function normalisePath(path: string): string {
-  const basename = process.env.REACT_APP_BASENAME;
-
-  if (!basename || path.substring(0, basename.length) !== basename) {
-    return path;
-  }
-
-  // Make sure that the resulting path starts with a slash if the input did as well:
-  const rest = path.substring(basename.length);
-  return (path.charAt(0) === '/' && rest.charAt(0) !== '/')
-    ? `/${rest}`
-    : rest;
-}
 
 export default App;
