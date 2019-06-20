@@ -1,6 +1,7 @@
 import React from 'react';
 import Logo from './logo.svg';
 import { ProfileButton } from './ProfileButton';
+import { LoggedIn, LogoutButton, LoggedOut, LoginButton } from '@solid/react';
 
 export const Header: React.FC = () => {
   return (
@@ -14,9 +15,19 @@ export const Header: React.FC = () => {
         </div>
         <nav className="nav nav__toolbar">
           <ul>
-            <li>
-              <ProfileButton/>
-            </li>
+            <LoggedIn>
+              <li>
+                <ProfileButton/>
+              </li>
+              <li>
+                  <LogoutButton/>
+              </li>
+            </LoggedIn>
+            <LoggedOut>
+              <li>
+                <LoginButton popup="popup.html"/>
+              </li>
+            </LoggedOut>
           </ul>
         </nav>
       </div>
