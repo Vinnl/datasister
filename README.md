@@ -46,3 +46,23 @@ With the following features, there would be enough functionality to be useful to
 - [x] Link to relevant webapps
 - [ ] Set application permissions
 - [ ] View your profile (is this actually required)?
+
+# How to use this
+
+This project is compatible with the way mashlib is loaded in [the `mashlib-bundle` branch](https://github.com/solid/node-solid-server/pull/1218) of node-solid-server. Thus, check that out, then...
+
+- in `lib/create-app.js`, replace
+
+```diff
+-  app.use('/', express.static(path.join(__dirname, '../node_modules/mashlib/dist'), { index: false }))
++  app.use('/', express.static(path.join(__dirname, '../../datasister/build'), { index: false }))
+```
+
+- in `lib/handlers/get.js`, replace
+
+```diff
+-      const defaultDataBrowser = _path.join(__dirname, '../../node_modules/mashlib/dist/index.html')
++      const defaultDataBrowser = _path.join(__dirname, '../../../datasister/build/index.html')
+```
+
+Make sure to refer to the correct path of the datasister repository. Then run `npm install; npm run build` in the datasister repository, start node-solid-server, and you should be good to go!
