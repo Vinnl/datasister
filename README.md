@@ -1,44 +1,48 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This started out as an experiment to find out whether the React/vanilla Pane approach could also work the other way around: loading a Pane written in vanilla JS in a React app.
 
-## Available Scripts
+I got to a working Data Browser with so little effort, that I decided to polish it up a bit. Here I'll evaluate the pros and cons of this project.
 
-In the project directory, you can run:
+# Pros
 
-### `npm start`
+This approach already ticks many of the revamp boxes, in very little time. We have:
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Same API interface as mashlib (for loading from the server), and towards Panes
+- Preservation of the ability to use whatever framework (or none at all) one wants when writing Panes.
+- A focus on a11y for everything that's included, insofar as the style guide allows it.
+- A safer and more intuitive interface. But: it could still be a lot better. Iterating on the interface is a lot easier, though.
+- Far less custom tooling and architecture, so easier on-boarding for new developers. Pane code, too, is learly delineated.
+- We can lean on all debugging and other tools of the React community.
+- Use of the Style Guide.
+- A *far* easier build setup, and no hassles with `npm link`.
+- Easy to write unit tests for the rest of the Data Browser as well.
+- TypeScript support.
+- No more folding and removal of all Panes, nor hover-to-reveal.
+- Global navigation.
+- Easier to discern between logged in and out.
+- A start at a home page - though it's still covered up by the `index.html` in the user's Pod.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Additionally, using React it's really easy to do lazy-loading of Panes at the moment when they are needed.
 
-### `npm test`
+I also experimented with opening apps that then automatically log in to the Pod. This feels like a good approach to:
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Keep the scope of the Data Browser project relatively limited (i.e. only reading data) and thus easier to get to a state where it can start providing value to people.
+2. Makes it easier for us to involve third-party contributors. For example, we could work with the UX team to have them design simple apps that complement the Data Browser by actually manipulating data, and then put out a call on the forum calling for people to work on those. They're not dependent on submitting pull requests to us, or on us having to deploy their code, so they can move quickly. When they get to a good state, we can still link to those apps from the Data Browser for a relatively seamless experience.
 
-### `npm run build`
+# Cons
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In effect, this is practically a complete rewrite of the Data Browser. That means that it does not currently support practically all of the Panes that the current Data Browser does.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+The effects of this are somewhat mitigated by the fact that the Panes here conform to practically the same API as we used for the Panes we used in our SoC experiments. Given that we'll likely have to touch most of them anyway to get their UX up to scratch, "porting" them to this version might not be _that_ much work. Additionally, given that this version can run as a separate app and also uses the style guide, we could try an approach in which updated Panes work in both versions.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Another potential downside is that this rewrite does not support nested folders, or opening Panes next to each other. This could potentially be added later, but to keep the UX and implementation simple for now, this is not implemented.
 
-### `npm run eject`
+# MVP Requirements
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+With the following features, there would be enough functionality to be useful to people:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [x] View RDF statements
+- [x] Support Panes written in React or regular DOM
+- [x] Log in/out
+- [x] Link to relevant webapps
+- [ ] Set application permissions
+- [ ] View your profile (is this actually required)?
