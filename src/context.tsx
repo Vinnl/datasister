@@ -1,8 +1,9 @@
 import React from 'react';
-import $rdf, { IndexedFormula } from 'rdflib';
+import $rdf, { IndexedFormula, Fetcher } from 'rdflib';
 
 export interface DataBrowserContextData {
   store: IndexedFormula;
+  fetcher: Fetcher;
   podOrigin: string;
   loadResource: (resourcePath: string) => void;
 };
@@ -10,6 +11,7 @@ export interface DataBrowserContextData {
 const defaultContext: DataBrowserContextData = {
   podOrigin: document.location.origin,
   store: $rdf.graph(),
+  fetcher: new Fetcher($rdf.graph(), undefined),
   loadResource: () => undefined,
 };
 

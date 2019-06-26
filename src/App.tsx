@@ -1,6 +1,6 @@
 import React from 'react';
 import '@inrupt/solid-style-guide';
-import $rdf from 'rdflib';
+import $rdf, { NamedNode } from 'rdflib';
 import './App.css';
 import { ResourceLoader } from './components/ResourceLoader';
 import { DataBrowserContextData, DataBrowserContext } from './context';
@@ -10,6 +10,7 @@ import { Connect } from './components/Connect';
 import { useResourceLoader } from './hooks/useResourceLoader';
 import { useResourceRouter, loadResource } from './hooks/useResourceRouter';
 import { Header } from './components/styleguide/Header';
+import { Dashboard } from './Dashboard';
 
 const store = $rdf.graph();
 const fetcher = new $rdf.Fetcher(store, undefined);
@@ -33,36 +34,31 @@ const App: React.FC = () => {
     );
   }
 
-  const dataBrowserContext: DataBrowserContextData = { store, podOrigin, loadResource };
+  const dataBrowserContext: DataBrowserContextData = { store, fetcher, podOrigin, loadResource };
 
   return (
     <DataBrowserContext.Provider value={dataBrowserContext}>
       <div className="App">
         <Header/>
         <div className="header-spacer"/>
-        <Introduction resourcePath={resourcePath}/>
-        <ResourceLoader resource={resource}/>
+        {
+
+        }
+        <MainContent podOrigin={podOrigin} resourcePath={resourcePath} resource={resource}/>
       </div>
     </DataBrowserContext.Provider>
   );
 }
 
-const Introduction: React.FC<{resourcePath: string | undefined}> = (props) => {
-  const { podOrigin } = React.useContext(DataBrowserContext);
-
-  if (props.resourcePath !== podOrigin && props.resourcePath !== podOrigin + '/') {
-    return null;
+const MainContent: React.FC<{
+  podOrigin: string,
+  resourcePath: string | undefined,
+  resource: NamedNode | undefined
+}> = (props) => {
+  if (props.resourcePath === props.podOrigin || props.resourcePath === props.podOrigin + '/') {
+    return <Dashboard/>
   }
-
-  return (
-    <section>
-      <article>
-        <h2>This is your Pod</h2>
-        <p>Here, you can browse through all data stored by apps you gave access to your Pod.</p>
-      </article>
-    </section>
-  );
+  return <ResourceLoader resource={props.resource}/>;
 }
-
 
 export default App;
