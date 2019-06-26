@@ -3,9 +3,11 @@ import $rdf from 'rdflib';
 import { useWebId } from '@solid/react';
 import { namespaces as ns } from '../namespace';
 import { DataBrowserContext } from '../context';
+import { usePodOrigin } from '../hooks/usePodOrigin';
 
 export const BookmarksWidget: React.FC = () => {
   const { store, fetcher } = React.useContext(DataBrowserContext);
+  const podOrigin = usePodOrigin(store, fetcher);
 
   const bookmarks = useBookmarks(store, fetcher);
 
@@ -17,8 +19,9 @@ export const BookmarksWidget: React.FC = () => {
     <div className="card">
       <h2>Latest bookmarks</h2>
       <ul>
-        {bookmarks.map((bookmark) => <li key={bookmark.url}><a href={bookmark.url}>{bookmark.title}</a></li>)}
+        {bookmarks.slice(0, 5).map((bookmark) => <li key={bookmark.url}><a href={bookmark.url}>{bookmark.title}</a></li>)}
       </ul>
+      <a className="ids-button" href={`https://vincenttunru.gitlab.io/poddit?idp=${podOrigin || ''}`}>All bookmarks</a>
     </div>
   );
 }
