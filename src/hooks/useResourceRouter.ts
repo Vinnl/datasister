@@ -12,11 +12,14 @@ export const useResourceRouter: UseResourceRouter = (podOrigin) => {
       return;
     }
     // When initialising the data browser, load the resource at the current URL:
-    const initialResourcePath = podOrigin + normalisePath(document.location.pathname) + document.location.search + document.location.hash;
-    setResourcePath(initialResourcePath);
+    const queryParams = new URL(document.location.href).searchParams;
+    const resourceParam = queryParams.get('resource');
+    const initialResource = resourceParam ? decodeURI(resourceParam) : podOrigin;
+    setResourcePath(initialResource);
 
     const unlisten = history.listen((newLocation) => {
-      setResourcePath(podOrigin + normalisePath(newLocation.pathname) + newLocation.search + newLocation.hash);
+      const newLocationParams = new URLSearchParams(newLocation.search);
+      setResourcePath(decodeURI(newLocationParams.get('resource') || podOrigin));
     })
 
     return unlisten;
@@ -26,21 +29,8 @@ export const useResourceRouter: UseResourceRouter = (podOrigin) => {
 }
 
 export function loadResource (resourcePath: string): void {
-  const url = new URL(resourcePath);
-  const basename = process.env.REACT_APP_BASENAME || '';
-  history.push(basename + url.pathname + url.search + url.hash);
-}
-
-function normalisePath(path: string): string {
-  const basename = process.env.REACT_APP_BASENAME;
-
-  if (!basename || path.substring(0, basename.length) !== basename) {
-    return path;
-  }
-
-  // Make sure that the resulting path starts with a slash if the input did as well:
-  const rest = path.substring(basename.length);
-  return (path.charAt(0) === '/' && rest.charAt(0) !== '/')
-    ? `/${rest}`
-    : rest;
+  const basename = process.env.REACT_APP_BASENAME || document.location.origin;
+  const newLocation = new URL(basename);
+  newLocation.search = `?resource=${encodeURI(resourcePath)}`;
+  history.push(newLocation.pathname + newLocation.search + newLocation.hash);
 }
