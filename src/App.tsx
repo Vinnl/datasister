@@ -14,6 +14,7 @@ import { Dashboard } from './Dashboard';
 
 const store = $rdf.graph();
 const fetcher = new $rdf.Fetcher(store, undefined);
+const updater = new $rdf.UpdateManager(store);
 
 const App: React.FC = () => {
   const podOrigin = usePodOrigin(store, fetcher);
@@ -34,7 +35,13 @@ const App: React.FC = () => {
     );
   }
 
-  const dataBrowserContext: DataBrowserContextData = { store, fetcher, podOrigin, loadResource };
+  const dataBrowserContext: DataBrowserContextData = {
+    store,
+    fetcher,
+    updater,
+    podOrigin,
+    loadResource,
+  };
 
   return (
     <DataBrowserContext.Provider value={dataBrowserContext}>
