@@ -3,6 +3,7 @@ import $rdf from 'rdflib';
 import { PaneLoader } from './PaneLoader';
 import { Loading } from './Loading';
 import { canHandle as isContainer } from '../panes/folder/matcher';
+import { canHandle as isProfile } from '../panes/profile/matcher';
 import { DataBrowserContext } from '../context';
 
 interface Props {
@@ -20,6 +21,9 @@ export const ResourceLoader: React.FC<Props> = (props) => {
 
   if (isContainer(props.resource, store)) {
     pane = 'folder';
+  }
+  if (isProfile(props.resource, store)) {
+    pane = 'profile';
   }
 
   if (typeof pane === 'undefined') {
