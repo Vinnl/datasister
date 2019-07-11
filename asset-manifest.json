@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/datasister/static/css/main.5ff4d2ad.chunk.css",
-    "main.js": "/datasister/static/js/main.473b543f.chunk.js",
-    "main.js.map": "/datasister/static/js/main.473b543f.chunk.js.map",
+    "main.js": "/datasister/static/js/main.e393f67e.chunk.js",
+    "main.js.map": "/datasister/static/js/main.e393f67e.chunk.js.map",
     "runtime~main.js": "/datasister/static/js/runtime~main.fcdfca58.js",
     "runtime~main.js.map": "/datasister/static/js/runtime~main.fcdfca58.js.map",
     "static/js/2.76e730c3.chunk.js": "/datasister/static/js/2.76e730c3.chunk.js",
@@ -14,7 +14,7 @@
     "static/js/5.26fc45c4.chunk.js": "/datasister/static/js/5.26fc45c4.chunk.js",
     "static/js/5.26fc45c4.chunk.js.map": "/datasister/static/js/5.26fc45c4.chunk.js.map",
     "index.html": "/datasister/index.html",
-    "precache-manifest.5c8abe8080992e75ab5f570f4751f46e.js": "/datasister/precache-manifest.5c8abe8080992e75ab5f570f4751f46e.js",
+    "precache-manifest.d2cbe9a0e48db150d8aebf6275fe0d90.js": "/datasister/precache-manifest.d2cbe9a0e48db150d8aebf6275fe0d90.js",
     "service-worker.js": "/datasister/service-worker.js",
     "static/css/main.5ff4d2ad.chunk.css.map": "/datasister/static/css/main.5ff4d2ad.chunk.css.map",
     "static/media/logo.svg": "/datasister/static/media/logo.13c16db9.svg",
