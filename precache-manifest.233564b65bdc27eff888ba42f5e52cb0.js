@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0faea1c16df44a47b49db46c6716d731",
+    "revision": "14075fc5b4192ee9138cb654d91fa718",
     "url": "/datasister/index.html"
   },
   {
@@ -20,16 +20,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/datasister/static/js/4.5eb323ca.chunk.js"
   },
   {
-    "revision": "19b3def8dd95df259360",
-    "url": "/datasister/static/js/5.26fc45c4.chunk.js"
+    "revision": "b7c0ac71bedc793ce859",
+    "url": "/datasister/static/js/5.249397d7.chunk.js"
   },
   {
     "revision": "5753959d8c19064affef",
     "url": "/datasister/static/js/main.9112293f.chunk.js"
   },
   {
-    "revision": "a7e4253563c0534777c8",
-    "url": "/datasister/static/js/runtime~main.fcdfca58.js"
+    "revision": "58b9971267af91c652e5",
+    "url": "/datasister/static/js/runtime~main.c0936f50.js"
   },
   {
     "revision": "13c16db9b1b06302579a72c3b3d6f9e4",
