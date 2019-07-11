@@ -29,7 +29,7 @@ export const useResourceRouter: UseResourceRouter = (podOrigin) => {
 }
 
 export function loadResource (resourcePath: string): void {
-  const basename = process.env.REACT_APP_BASENAME || document.location.origin;
+  const basename = document.location.origin + (process.env.REACT_APP_BASENAME || '/');
   const newLocation = new URL(basename);
   newLocation.search = `?resource=${encodeURI(resourcePath)}`;
   history.push(newLocation.pathname + newLocation.search + newLocation.hash);
