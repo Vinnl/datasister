@@ -4,7 +4,7 @@ import Icon from './user.svg';
 import { useWebId } from '@solid/react';
 import { ResourceLink } from '../ResourceLink';
 
-export const ProfileButton: React.FC = () => {
+export const ProfileButton: React.FC<React.HTMLAttributes<HTMLAnchorElement>> = (props) => {
   const webId = useWebId();
 
   if (!webId) {
@@ -13,8 +13,9 @@ export const ProfileButton: React.FC = () => {
 
   return (
       <ResourceLink
-        resource={$rdf.sym(webId)}
         title="View your profile"
+        {...props}
+        resource={$rdf.sym(webId)}
       >
         <span className="icon"><img src={Icon} alt="View your profile"/></span>
       </ResourceLink>

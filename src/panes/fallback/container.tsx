@@ -5,21 +5,21 @@ import { Resources } from './Resources';
 import { Toggle } from '../../components/styleguide/Toggle';
 
 export const Container: PaneContainer = (props) => {
-  const [cardView, setCardView] = React.useState(true);
+  const [tableView, setTableView] = React.useState(true);
 
   const toggleView = () => {
-    setCardView(!cardView);
+    setTableView(!tableView);
   }
 
   return (
-    <section>
-      <p>Unfortunately we do not yet have a Pane to display this type of resource.</p>
-      <p>You can see the raw document below:</p>
-      <Toggle onChange={toggleView} label="Card view" defaultChecked={cardView}/>
-      {cardView
+    <section className="section">
+      <p className="content">Unfortunately we do not yet have a Pane to display this type of resource.</p>
+      <p className="content">You can see the raw document below:</p>
+      {tableView
         ? <Resources resource={props.resource} store={props.store}/>
         : <Turtle resource={props.resource} store={props.store}/>
       }
+      <Toggle onChange={toggleView} label="Table view" defaultChecked={tableView}/>
     </section>
   );
 };

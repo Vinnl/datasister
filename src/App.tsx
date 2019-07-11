@@ -1,7 +1,6 @@
 import React from 'react';
-import '@inrupt/solid-style-guide';
 import $rdf, { NamedNode } from 'rdflib';
-import './App.css';
+import './styles/App.scss';
 import { ResourceLoader } from './components/ResourceLoader';
 import { DataBrowserContextData, DataBrowserContext } from './context';
 import { usePodOrigin } from './hooks/usePodOrigin';
@@ -27,10 +26,14 @@ const App: React.FC = () => {
   if (podOrigin === null) {
     return (
       <>
-        <section className="banner banner-wrap--error">
-          <div className="banner-wrap__content">Could not find a Pod to browse.</div>
+        <section className="section">
+          <div className="message is-danger">
+            <div className="message-body">Could not find a Pod to browse.</div>
+          </div>
         </section>
-        <Connect/>
+        <section className="section">
+          <Connect/>
+        </section>
       </>
     );
   }
@@ -47,10 +50,6 @@ const App: React.FC = () => {
     <DataBrowserContext.Provider value={dataBrowserContext}>
       <div className="App">
         <Header/>
-        <div className="header-spacer"/>
-        {
-
-        }
         <MainContent podOrigin={podOrigin} resourcePath={resourcePath} resource={resource}/>
       </div>
     </DataBrowserContext.Provider>

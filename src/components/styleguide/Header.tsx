@@ -11,38 +11,36 @@ export const Header: React.FC = () => {
   const { store, fetcher } = React.useContext(DataBrowserContext);
   const podOrigin = usePodOrigin(store, fetcher);
 
+  // Unfortunately, the style guide does not display the logo without an explicit height:
   const logo = <img src={Logo} style={{height: '25px'}} alt="Data Browser"/>;
   const logoLink = (podOrigin)
-    ? <ResourceLink resource={$rdf.sym(podOrigin)}>{logo}</ResourceLink>
+    ? <ResourceLink resource={$rdf.sym(podOrigin)} className="navbar-item">{logo}</ResourceLink>
     : logo;
 
   return (
-    <header className="header fixed">
-      <div className="header-wrap">
-        <div className="logo-block">
-          <h1>
-            {/* Unfortunately, the style guide does not display the logo without an explicit height: */}
-            {logoLink}
-          </h1>
+    <header className="header">
+      <nav className="navbar">
+        <div className="navbar-brand">
+          {logoLink}
         </div>
-        <nav className="nav nav__toolbar">
-          <ul>
+        <div className="navbar-menu">
+          <div className="navbar-end">
             <LoggedIn>
-              <li>
-                <ProfileButton/>
-              </li>
-              <li>
-                  <LogoutButton/>
-              </li>
+              <div className="navbar-item">
+                <ProfileButton className="button is-text"/>
+              </div>
+              <div className="navbar-item">
+                <LogoutButton className="button"/>
+              </div>
             </LoggedIn>
             <LoggedOut>
-              <li>
-                <LoginButton popup="popup.html"/>
-              </li>
+              <div className="navbar-item">
+                <LoginButton popup="popup.html" className="button"/>
+              </div>
             </LoggedOut>
-          </ul>
-        </nav>
-      </div>
+          </div>
+        </div>
+      </nav>
     </header>
   );
 }

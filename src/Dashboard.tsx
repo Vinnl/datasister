@@ -8,11 +8,21 @@ export const Dashboard: React.FC<{
 }> = (props) => {
   return (
     <>
-      <section className="grid__four-column grid">
-        <ProfileWidget/>
-        <AppsWidget/>
-        <FolderWidget/>
-        <BookmarksWidget/>
+      <section className="section">
+        <div className="columns">
+          <div className="column">
+            <ProfileWidget/>
+          </div>
+          <div className="column">
+            <AppsWidget/>
+          </div>
+          <div className="column">
+            <FolderWidget/>
+          </div>
+          <div className="column">
+            <BookmarksWidget/>
+          </div>
+        </div>
       </section>
   </>);
 };

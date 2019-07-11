@@ -8,20 +8,34 @@ export const Container: PaneContainer = (props) => {
   const contents = props.store.statementsMatching(props.resource, ns.ldp('contains'), null, null);
 
   if (contents.length === 0) {
-    return (<section><p>This container is empty&hellip;</p></section>);
+    return (
+      <section className="section">
+        <div className="message is-info">
+          <p className="message-body">This container is empty.</p>
+        </div>
+      </section>);
   }
 
   const cards = contents.map((statement) => {
     return (
-      <div key={statement.object.value} className="card">
-        <ResourceLink resource={statement.object as NamedNode}/>
+      <div key={statement.object.value} className="column">
+        <div className="card has-text-centered">
+          <p className="section">
+            <ResourceLink
+              resource={statement.object as NamedNode}
+              className="button is-text"
+            />
+          </p>
+        </div>
       </div>
     );
   });
   
   return (
-    <section className="grid grid__four-column">
-      {cards}
+    <section className="section">
+      <div className="columns">
+        {cards}
+      </div>
     </section>
   );
 };

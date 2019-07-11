@@ -1,0 +1,88 @@
+// If we decide to go with this, this file should probably be extracted into a separate package.
+
+@charset "utf-8";
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+// Note: We should self-host fonts, really:
+@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto:400,700');
+
+// You can use Bulma variables from here on
+$purple: #7C4DFF;
+$cyan: #01C9EA;
+$blue: #18A9E6;
+$blue-dark: #083575;
+$grey-lighter: #DAE0E6;
+$green: #01FAAB;
+$yellow: #FFA600;
+$red: #D0021B;
+
+$primary: $purple;
+$secondary: $cyan;
+$link: $purple;
+
+$family-primary: "\"Raleway\", " + $family-sans-serif;
+$family-secondary: "\"Roboto\", " + $family-sans-serif;
+
+// Title
+$title-color: #5361FD;
+$title-size: $size-4;
+
+// Navbar
+$navbar-box-shadow-size: 0px 1px 4px;
+$navbar-box-shadow-color: rgba(0, 0, 0, 0.1);
+
+// Cards
+$card-shadow: 0 1px 5px rgba($black, 0.2);
+
+// Switch
+$switch-paddle-offset: 0;
+
+// Buttons
+$button-background-color: $white-ter;
+$button-hover-color: #449DF5;
+$button-hover-border-color: $button-hover-color;
+$button-padding-vertical: 1.5em;
+
+// Notifications
+$notification-padding: 1em;
+$notification-radius: 0;
+
+// Table
+$table-row-hover-background-color: change-color($primary, $alpha: 0.2);
+
+// Toasts
+$message-header-padding: 0.75em 1em;
+$message-body-padding: 0.75em 1em;
+
+@import "~bulma/bulma";
+@import "~bulma/sass/utilities/derived-variables";
+@import "~bulma-switch/src/sass/index";
+
+// You can use derived variables from here on
+
+// Title
+.title {
+  text-transform: uppercase;
+}
+
+// Toasts
+.message {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+
+  .message-header {
+    font-family: $family-secondary;
+    text-transform: uppercase;
+  }
+
+  @each $name, $pair in $message-colors {
+    $color: nth($pair, 1);
+    $color-invert: nth($pair, 2);
+    &.is-#{$name} {
+      .message-body {
+        background-color: $color;
+        color: $color-invert;
+      }
+    }
+  }
+}

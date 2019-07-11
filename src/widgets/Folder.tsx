@@ -14,11 +14,19 @@ export const FolderWidget: React.FC = () => {
 
   return (
     <div className="card">
-      <h2>Raw data</h2>
-      <p>
-        <ResourceLink className="ids-link-filled ids-link-filled--primary" resource={$rdf.sym(`${podOrigin}/public/`)}>Public data</ResourceLink>
-        <ResourceLink className="ids-button" resource={$rdf.sym(`${podOrigin}/private/`)}>Private data</ResourceLink>
-      </p>
+      <section className="section">
+        <h2 className="title">Raw data</h2>
+        <p className="buttons">
+          <ResourceLink
+            className="button is-primary is-fullwidth is-medium"
+            resource={$rdf.sym(`${podOrigin}/public/`)}
+          >Public data</ResourceLink>
+          <ResourceLink
+            className="button is-fullwidth is-small"
+            resource={$rdf.sym(`${podOrigin}/private/`)}
+          >Private data</ResourceLink>
+        </p>
+      </section>
     </div>
   );
 }

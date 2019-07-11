@@ -8,15 +8,19 @@ interface Props {
 
 export const ProfileCard: React.FC<Props> = (props) => {
   const profile = getProfile(props.profileStatements);
-  const photo = profile.photo ? <img src={profile.photo} alt={profile.name || ''}/> : null;
+  const photo = profile.photo ? <img src={profile.photo} className="image is-128x128" alt={profile.name || ''}/> : null;
 
   return (
     <div className="card">
-      <h2>{profile.name || 'Anonymous'}</h2>
-      {photo}
-      <p>
-        {profile.role} {(profile.role && profile.organization) ? ' at ' : null} {profile.organization}
-      </p>
+      <div className="section">
+        <h2 className="title">{profile.name || 'Anonymous'}</h2>
+        <p className="content">
+          {photo}
+        </p>
+        <p className="content">
+          {profile.role} {(profile.role && profile.organization) ? ' at ' : null} {profile.organization}
+        </p>
+      </div>
     </div>
   );
 };

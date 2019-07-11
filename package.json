@@ -4,7 +4,6 @@
   "homepage": "https://vinnl.github.io/datasister",
   "private": true,
   "dependencies": {
-    "@inrupt/solid-style-guide": "^0.1.34",
     "@solid/react": "^1.6.0",
     "@types/history": "^4.7.2",
     "@types/jest": "24.0.14",
@@ -13,6 +12,8 @@
     "@types/react": "16.8.20",
     "@types/react-dom": "16.8.4",
     "@types/solid__react": "^1.6.1",
+    "bulma": "^0.7.5",
+    "bulma-switch": "^2.0.0",
     "history": "^4.9.0",
     "node-sass": "^4.12.0",
     "rdflib": "^0.20.1",

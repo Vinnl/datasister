@@ -12,13 +12,15 @@ interface Props {
 export const View: React.FC<Props> = (props) => {
   return (
     <>
-      <p>Here you can manage the applications you trust.</p>,
-      <table className="results">
+      <h2 className="title">Applications</h2>
+      <p className="content">Manage which applications can access data on your Pod.</p>
+      <p className="content">Note: applications will never have more access than you have.</p>
+      <table className="table is-fullwidth is-bordered is-striped">
         <thead>
           <tr>
             <th>Application URL</th>
-            <th>Access modes</th>
-            <th>Actions</th>
+            <th>Access level</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -33,16 +35,6 @@ export const View: React.FC<Props> = (props) => {
         </tbody>
       </table>
       <NewApplication onSave={props.onSaveApp}/>
-      <h4>Notes</h4>
-      <ol>
-        <li>Trusted applications will get access to all resources that you have access to.</li>
-        <li>You can limit which modes they have by default.</li>
-        <li>They will not gain more access than you have.</li>
-      </ol>
-      <p>
-        Application URLs must be valid URL.
-        Examples are http://localhost:3000, https://trusted.app, and https://sub.trusted.app.
-      </p>
     </>
   )
 }
@@ -81,53 +73,68 @@ const ApplicationRow: React.FC<{
       </td>
       <td>
         <form onSubmit={submitHandler}>
-          <div className="input-wrap">
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                onChange={getCheckboxHandler('Read')}
-                checked={modes.Read}
-                name="Read"
-                id="Read"
-              />
-              Read
-            </label>
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                onChange={getCheckboxHandler('Append')}
-                checked={modes.Append}
-                name="Append"
-                id="Append"
-              />
-              Append
-            </label>
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                onChange={getCheckboxHandler('Write')}
-                checked={modes.Write}
-                name="Write"
-                id="Write"
-              />
-              Write
-            </label>
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                onChange={getCheckboxHandler('Control')}
-                checked={modes.Control}
-                name="Control"
-                id="Control"
-              />
-              Control
-            </label>
+          <div className="field is-grouped">
+            <div className="control">
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  onChange={getCheckboxHandler('Read')}
+                  checked={modes.Read}
+                  name="Read"
+                  id="Read"
+                />
+                Read
+              </label>
+            </div>
+            <div className="control">
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  onChange={getCheckboxHandler('Append')}
+                  checked={modes.Append}
+                  name="Append"
+                  id="Append"
+                />
+                Append
+              </label>
+            </div>
+            <div className="control">
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  onChange={getCheckboxHandler('Write')}
+                  checked={modes.Write}
+                  name="Write"
+                  id="Write"
+                />
+                Write
+              </label>
+            </div>
+            <div className="control">
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  onChange={getCheckboxHandler('Control')}
+                  checked={modes.Control}
+                  name="Control"
+                  id="Control"
+                />
+                Control
+              </label>
+            </div>
           </div>
-          <button type="submit">Save</button>
+          <div className="field">
+            <div className="control">
+              <button type="submit" className="button is-small">Save</button>
+            </div>
+          </div>
         </form>
       </td>
-      <td>
-        <button onClick={() => props.onDelete(props.app.origin)}>Delete</button>
+      <td className="has-text-right is-narrow">
+        <button
+          onClick={() => props.onDelete(props.app.origin)}
+          className="button is-danger is-small"
+        >Delete</button>
       </td>
     </tr>
   )
@@ -157,56 +164,63 @@ const NewApplication: React.FC<{ onSave: AddOrUpdate }> = (props) => {
   }
 
   return (
-    <form onSubmit={submitHandler}>
-      <div className="input-wrap">
-        <label>App URL:</label>
+    <form onSubmit={submitHandler} className="footer">
+      <div className="field">
+        <label className="label">App URL:</label>
         <input
           type="url"
           onChange={(e) => setOrigin(e.target.value)}
           name="origin"
           id="origin"
           placeholder="https://example.com"
+          className="input"
         />
       </div>
-      <div className="input-wrap">
-        <label className="checkbox">
-          <input
-            type="checkbox"
-            onChange={getCheckboxHandler('Read')}
-            name="Read"
-            id="Read"
-          />
-          Read
-        </label>
-        <label className="checkbox">
-          <input
-            type="checkbox"
-            onChange={getCheckboxHandler('Append')}
-            name="Append"
-            id="Append"
-          />
-          Append
-        </label>
-        <label className="checkbox">
-          <input
-            type="checkbox"
-            onChange={getCheckboxHandler('Write')}
-            name="Write"
-            id="Write"
-          />
-          Write
-        </label>
-        <label className="checkbox">
-          <input
-            type="checkbox"
-            onChange={getCheckboxHandler('Control')}
-            name="Control"
-            id="Control"
-          />
-          Control
-        </label>
+      <div className="field">
+        <div className="control">
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              onChange={getCheckboxHandler('Read')}
+              name="Read"
+              id="Read"
+            />
+            Read
+          </label>
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              onChange={getCheckboxHandler('Append')}
+              name="Append"
+              id="Append"
+            />
+            Append
+          </label>
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              onChange={getCheckboxHandler('Write')}
+              name="Write"
+              id="Write"
+            />
+            Write
+          </label>
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              onChange={getCheckboxHandler('Control')}
+              name="Control"
+              id="Control"
+            />
+            Control
+          </label>
+        </div>
       </div>
-      <button type="submit">Add</button>
+      <div className="field">
+        <div className="control">
+          <button type="submit" className="button is-primary">Give access</button>
+        </div>
+      </div>
     </form>
   )
 }

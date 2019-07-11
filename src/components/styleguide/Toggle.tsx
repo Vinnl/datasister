@@ -14,11 +14,12 @@ export const Toggle: React.FC<Props> = (props) => {
     ...props,
     label: undefined,
   };
+  const id = encodeURIComponent(props.label);
 
   return (
-    <label className="switch">
-      <input {...inputProps} aria-label={props.label} type="checkbox"/>
-      <span className="slider round"/>
-    </label>
+    <div className="field">
+      <input {...inputProps} id={id} aria-label={props.label} type="checkbox" className="switch"/>
+      <label htmlFor={id}>{props.label}</label>
+    </div>
   );
 }

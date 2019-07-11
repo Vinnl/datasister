@@ -13,17 +13,14 @@ export const AppsWidget: React.FC = () => {
 
   return (
     <div className="card">
-      <h2>Try this app</h2>
-      <p>
-        <a href={appLink} title="Open Pixolid">
-          <img src={Pixolid} alt="" style={{display: 'inline-block', margin: '0 10%', maxWidth: '80%'}}/>
-        </a>
-      </p>
-      <p>
-        <a href={appLink} title="Open Pixolid" className="ids-button">
-          Pixolid
-        </a>
-      </p>
+      <section className="section">
+        <h2 className="title">Try this app</h2>
+        <p className="has-text-centered">
+          <a href={appLink} title="Open Pixolid">
+            <img src={Pixolid} alt="" style={{display: 'inline-block', margin: '0 10%', maxWidth: '80%'}}/>
+          </a>
+        </p>
+      </section>
     </div>
   );
 }

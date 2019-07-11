@@ -41,8 +41,6 @@ export const Resources: React.FC<Props> = (props) => {
   });
 
   return (
-    <div className="card">
-      <table><tbody>{rows}</tbody></table>
-    </div>
+    <table className="table is-fullwidth is-bordered is-striped"><tbody>{rows}</tbody></table>
   );
 };

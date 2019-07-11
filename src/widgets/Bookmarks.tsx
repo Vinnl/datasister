@@ -17,11 +17,15 @@ export const BookmarksWidget: React.FC = () => {
 
   return (
     <div className="card">
-      <h2>Latest bookmarks</h2>
-      <ul>
-        {bookmarks.slice(0, 5).map((bookmark) => <li key={bookmark.url}><a href={bookmark.url}>{bookmark.title}</a></li>)}
-      </ul>
-      <a className="ids-button" href={`https://vincenttunru.gitlab.io/poddit?idp=${podOrigin || ''}`}>All bookmarks</a>
+      <section className="section">
+        <h2 className="title">Latest bookmarks</h2>
+        <div className="content">
+          <ul>
+            {bookmarks.slice(0, 5).map((bookmark) => <li key={bookmark.url}><a href={bookmark.url}>{bookmark.title}</a></li>)}
+          </ul>
+        </div>
+        <a className="button is-text" href={`https://vincenttunru.gitlab.io/poddit?idp=${podOrigin || ''}`}>All bookmarks</a>
+      </section>
     </div>
   );
 }

@@ -20,13 +20,16 @@ export const Turtle: React.FC<Props> = (props) => {
   });
 
   return (
-    <textarea
-      value={serialised}
-      name="rawDocument"
-      id="rawDocument"
-      cols={30}
-      rows={10}
-      readOnly
-    />
+    <div className="field">
+      <textarea
+        value={serialised}
+        name="rawDocument"
+        id="rawDocument"
+        className="textarea"
+        cols={30}
+        rows={10}
+        readOnly
+      />
+    </div>
   );
 };
