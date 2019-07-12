@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { IndexedFormula, NamedNode } from 'rdflib';
+import { IndexedFormula, NamedNode, UpdateManager } from 'rdflib';
 import { Loading } from './Loading';
 import { DataBrowserContext } from '../context';
 
@@ -9,12 +9,13 @@ export interface Props {
 };
 
 export const PaneLoader: React.FC<Props> = (props) => {
-  const { store, loadResource } = React.useContext(DataBrowserContext);
+  const { store, updater, loadResource } = React.useContext(DataBrowserContext);
   const PaneComponent = React.lazy(() => loadPane(props.pane));
   return (
     <Suspense fallback={<Loading/>}>
       <PaneComponent
         store={store}
+        updater={updater}
         resource={props.resource}
         loadResource={loadResource}
       />
@@ -52,6 +53,7 @@ async function loadPane(pane: string): Promise<{ default: PaneContainer }> {
 
 export interface PaneContainerProps {
   store: IndexedFormula;
+  updater: UpdateManager;
   resource: NamedNode;
   loadResource: (resourcePath: string) => void;
 };
