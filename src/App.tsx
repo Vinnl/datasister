@@ -1,5 +1,6 @@
 import React from 'react';
 import $rdf, { NamedNode } from 'rdflib';
+import auth from 'solid-auth-client';
 import './styles/App.scss';
 import { ResourceLoader } from './components/ResourceLoader';
 import { DataBrowserContextData, DataBrowserContext } from './context';
@@ -19,6 +20,16 @@ const App: React.FC = () => {
   const podOrigin = usePodOrigin(store, fetcher);
   const resourcePath = useResourceRouter(podOrigin);
   const resource = useResourceLoader(resourcePath, fetcher);
+
+  if (URLSearchParams && document.location.search.length > 0) {
+    const params = new URLSearchParams(document.location.search.substring(1));
+    if (params.has('idp')) {
+      login(params.get('idp'));
+      return (
+        <div>Logging you in, please stand by&hellip;</div>
+      );
+    }
+  }
 
   if (typeof podOrigin === 'undefined') {
     return (<Loading/>);
@@ -65,6 +76,17 @@ const MainContent: React.FC<{
     return <Dashboard/>
   }
   return <ResourceLoader resource={props.resource}/>;
+}
+
+async function login (identityProvider: string | null) {
+  if (!identityProvider) {
+    return;
+  }
+
+  const session = await auth.currentSession();
+  if (!session) {
+    auth.login(identityProvider);
+  }
 }
 
 export default App;
