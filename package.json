@@ -16,7 +16,7 @@
     "bulma": "^0.7.5",
     "bulma-switch": "^2.0.0",
     "history": "^4.9.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "rdflib": "^0.20.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
